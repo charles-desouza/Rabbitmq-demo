@@ -1,2 +1,2 @@
-# Rabbitmq-demo
-Messaging patterns with rabbitmq
+# Rabbitmq-demos
+Implement messaging patterns 
