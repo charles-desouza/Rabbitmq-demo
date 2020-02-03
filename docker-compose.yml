@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  task-publisher:
+    image: task-pub:latest
+    depends_on:
+      - "rabbitmq"
+    restart: always
+    build:
+      context: ./TaskPublisher.Api
+      dockerfile: Dockerfile
+    labels:
+      NAME: "taskpub"
+    ports:
+    - "5555:80"
+
+  task-subscriber:
+    image: task-sub:latest
+    depends_on:
+      - "rabbitmq"
+    restart: always
+    build:
+      context: ./TaskSubscriber
+      dockerfile: Dockerfile
+    labels:
+      NAME: "tasksub"
+
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+    - "4369:4369"
+    - "5671:5671"
+    - "5672:5672"
+    - "25672:25672"
+    - "15671:15671"
+    - "15672:15672"
